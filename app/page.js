@@ -1,16 +1,40 @@
 "use client";
 
 import Popular from "./components/Popular";
-import Overview from "./components/Overview";
 import Hourly from "./components/Hourly";
-import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { searchCities } from "./api/trimble";
+import CityList from "./CityList";
+import WeatherCard from "./components/WeatherCard";
+import { getCurrentLocationWeather, getWeather } from "./api/weather";
 
 export default function Home() {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
   const [selectedCity, setSelectedCity] = useState("");
+  const [cities, setCities] = useState([]);
+  const [currentCity, setCurrentCity] = useState(null);
+
+  useEffect(() => {
+    async function fetchCurrentCity() {
+      try {
+        // Get current location weather including city name
+        const weather = await getCurrentLocationWeather();
+
+        if (weather) {
+          const data = await searchCities(weather.location.name);
+
+          const locations = data ? data.Locations : [];
+          //console.log("locations:", locations);
+          setCurrentCity(locations.length > 0 ? locations[0] : null);
+        }
+      } catch (error) {
+        console.error("Error fetching cities:", error);
+      }
+      return () => {};
+    }
+    fetchCurrentCity();
+  }, []);
 
   const handleSearch = async (e) => {
     const value = e.target.value;
@@ -35,6 +59,7 @@ export default function Home() {
   };
   const handleSelect = (city) => {
     setSelectedCity(city);
+    setCities((prevCities) => [...prevCities, city]);
     setQuery("");
     setResults([]); // Clear results after selection
   };
@@ -79,10 +104,12 @@ export default function Home() {
         </div>
 
         {/* current location */}
-        <div>
-          <h2>Calgary</h2>
-          <Overview image={""} weather={"Sunny"} current={5} high={7} low={1} />
-        </div>
+        {currentCity && (
+          <div>
+            <h2>Calgary</h2>
+            <WeatherCard city={currentCity} />
+          </div>
+        )}
 
         {/* hourly */}
         <div>
@@ -99,6 +126,9 @@ export default function Home() {
             rain="0.1mm"
           />
         </div>
+
+        {/* city list */}
+        <CityList cities={cities} />
       </div>
       <footer>
         <p></p>
