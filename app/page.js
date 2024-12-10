@@ -65,7 +65,7 @@ export default function Home() {
   };
 
   return (
-    <main className="h-screen flex flex-col items-center justify-center bg-white  text-black">
+    <main className="h-screen flex flex-col items-center justify-between bg-white  text-black">
       <header className="mb-10">
         <h1 className="text-5xl">Skytrack</h1>
       </header>
@@ -102,7 +102,7 @@ export default function Home() {
         </div>
       </div>
       <footer>
-        <p></p>
+        <p>Author: Kenny Li, Nuo Li, Eve Zhao, Tsz Kin Fan </p>
       </footer>
     </main>
   );
