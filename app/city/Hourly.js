@@ -3,6 +3,7 @@ import React from "react";
 import Image from "next/image";
 
 function Hourly({
+  image,
   time,
   weather,
   temperature,
@@ -16,7 +17,7 @@ function Hourly({
   return (
     <div className="flex flex-row bg-black bg-opacity-50 rounded-lg w-auto items-center">
       <h2 className="self-start ml-2 mt-2 text-2xl">{time}</h2>
-      {/* <Image src={""} alt="weather" width={100} height={100} /> */}
+      <Image src={image} alt="icon" width={100} height={100} />
       <div className="flex flex-row">
         <p className="text-6xl">{temperature}</p>
         <p className="mt-1 text-1xl">°C</p>
