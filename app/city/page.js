@@ -1,6 +1,6 @@
 "use client";
 
-import React, { Suspense, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
 import { getWeather } from "../api/weather";
@@ -18,6 +18,7 @@ function CityDetail() {
 
   // Fetch weather data
   useEffect(() => {
+    if (!lat || !lon) return;
     async function fetchWeather() {
       try {
         const weather = await getWeather(lat, lon);
@@ -32,13 +33,11 @@ function CityDetail() {
     fetchWeather();
   }, [lat, lon]);
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <div>
-        <p>City: {cityName}</p>
-        <p>Lat: {lat}</p>
-        <p>Lon: {lon}</p>
-      </div>
-    </Suspense>
+    <div>
+      <p>City: {cityName}</p>
+      <p>Lat: {lat}</p>
+      <p>Lon: {lon}</p>
+    </div>
   );
 }
 
