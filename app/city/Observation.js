@@ -7,7 +7,7 @@ function Observation({ weather }) {
     return <p>Loading...</p>;
   }
   return (
-    <div className="flex flex-row gap-5">
+    <div className="flex flex-row gap-5 justify-center">
       <div className="bg-slate-400 rounded-2xl p-5 w-60">
         <h1>{day1.date}</h1>
         <p>Sunrise: {day1.astro.sunrise}</p>

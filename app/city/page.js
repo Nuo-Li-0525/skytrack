@@ -51,19 +51,19 @@ function CityDetail() {
       </div>
       {/* 7 days */}
       <div className="mt-10">
-        <h1 className="text-5xl ">7 Days</h1>
+        <h1 className="text-5xl text-center mb-5">7 Days</h1>
         <SevenDays weather={weather} />
       </div>
 
       {/* observation */}
       <div className="mt-10">
-        <h1 className="text-5xl ">Observations</h1>
+        <h1 className="text-5xl text-center mb-5">Observations</h1>
         <Observation weather={weather} />
       </div>
 
       {/* Hourly */}
       <div className="mt-10">
-        <h1 className="text-5xl ">Hourly</h1>
+        <h1 className="text-5xl text-center">Hourly</h1>
         <div className="flex flex-col gap-4 mt-5">
           {hourlyData.map((hour, index) => (
             <Hourly
