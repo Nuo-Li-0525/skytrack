@@ -29,11 +29,13 @@ function CityDetail() {
     fetchWeather();
   }, [lat, lon]);
   return (
-    <div>
-      <p>City: {cityName}</p>
-      <p>Lat: {lat}</p>
-      <p>Lon: {lon}</p>
-    </div>
+    <Suspense fallback={<div>Loading...</div>}>
+      <div>
+        <p>City: {cityName}</p>
+        <p>Lat: {lat}</p>
+        <p>Lon: {lon}</p>
+      </div>
+    </Suspense>
   );
 }
 
