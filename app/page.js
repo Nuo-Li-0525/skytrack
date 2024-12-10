@@ -65,7 +65,7 @@ export default function Home() {
   };
 
   return (
-    <main className="flex flex-col items-center justify-center bg-white  text-black">
+    <main className="h-screen flex flex-col items-center justify-center bg-white  text-black">
       <header className="mb-10">
         <h1 className="text-5xl">Skytrack</h1>
       </header>
