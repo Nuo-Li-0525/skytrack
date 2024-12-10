@@ -12,6 +12,7 @@ import { useRouter } from "next/router";
 
 export default function Home() {
   const [cities, setCities] = useState([]);
+  const [popularCities, setPopularCities] = useState([]);
   const [currentCity, setCurrentCity] = useState(null);
 
   useEffect(() => {
@@ -20,12 +21,30 @@ export default function Home() {
         // Get current location weather including city name
         const weather = await getCurrentLocationWeather();
 
+        // Get city name from weather data, then set current city
         if (weather) {
           const data = await searchCities(weather.location.name);
-
           const locations = data ? data.Locations : [];
           console.log("Locations:", locations);
           setCurrentCity(locations.length > 0 ? locations[0] : null);
+        }
+
+        // Get popular cities
+        const vancouver = await searchCities("Vancouver");
+        const toronto = await searchCities("Toronto");
+        const halifax = await searchCities("Halifax");
+
+        if (vancouver && toronto && halifax) {
+          setPopularCities([
+            vancouver.Locations[0],
+            toronto.Locations[0],
+            halifax.Locations[0],
+          ]);
+          setCities([
+            vancouver.Locations[0],
+            toronto.Locations[0],
+            halifax.Locations[0],
+          ]);
         }
       } catch (error) {
         console.error("Error fetching cities:", error);
@@ -58,8 +77,10 @@ export default function Home() {
           {/* Popular */}
           <div className="flex flex-row gap-2 items-center mb-10">
             <h2 className="pr-5">Popular</h2>
-            <Popular city="Toronto" province="ON" temperature={22} />
-            <Popular city="Calgary" province="AB" temperature={22} />
+            {/* Popular cities */}
+            {popularCities.map((city, index) => (
+              <Popular key={index} city={city} onClick={handleCityClick} />
+            ))}
           </div>
 
           {/* current location */}

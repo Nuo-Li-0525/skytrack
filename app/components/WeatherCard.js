@@ -30,15 +30,18 @@ function WeatherCard({ city }) {
     <div>
       {weather == null && <p>Loading...</p>}
       {weather && (
-        <div className="flex flex-row bg-black bg-opacity-50 rounded-lg justify-center items-center">
-          <Image
-            src={`https:${weather.current.condition.icon}`}
-            alt="icon"
-            width={180}
-            height={180}
-          />
+        <div className="w-[600px] h-[140px] flex flex-row bg-slate-400 bg-opacity-50 rounded-lg justify-between items-center p-5">
+          <div className="flex flex-shrink-0 justify-center items-center h-full">
+            <Image
+              src={`https:${weather.current.condition.icon}`}
+              alt="icon"
+              width={120}
+              height={120}
+              className="object-contain"
+            />
+          </div>
           <div className="flex flex-row">
-            <p className="text-9xl">{weather.current.temp_c}</p>
+            <p className="text-8xl">{weather.current.temp_c}</p>
             <p className="mt-3 text-3xl">°C</p>
           </div>
           <div className="flex flex-col ml-10 mt-3 text-2xl gap-2">
