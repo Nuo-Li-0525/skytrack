@@ -23,7 +23,7 @@ export const getCurrentLocationWeather = async () => {
     const response = await axios.get(`${BASE_URL}/forecast.json`, {
       params: {
         q: "auto:ip",
-        days: 3,
+        days: 7,
         key: process.env.NEXT_PUBLIC_WEATHER_API_KEY,
       },
     });

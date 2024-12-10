@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import Image from "next/image";
+import { getWeather } from "./api/weather";
 
 function CurrentWeather({ city }) {
   const {
-    Address: { City: city, StateName: state, CountryFullName: country },
+    Address: { City: cityName, StateName: state, CountryFullName: country },
     Coords: { Lat: lat, Lon: lon },
   } = city;
 
@@ -25,40 +27,77 @@ function CurrentWeather({ city }) {
   }, [lat, lon]);
 
   return (
-    <div>
+    <div className="flex flex-col justify-center items-center bg-slate-400 rounded-2xl border-red-400">
       {/* header */}
-      <div>
-        <h2>
-          {city}, {state}, {country}
-        </h2>
+      <div className="flex flex-row justify-center text-3xl">
+        {weather == null && <p>Loading...</p>}
+        {weather && (
+          <h2>
+            {cityName}, {state}, {country}
+          </h2>
+        )}
       </div>
       {/* information */}
-      <div>
+      {weather && (
         <div>
-          <Image
-            src={`https:${weather.current.condition.icon}`}
-            alt="weather"
-            width={100}
-            height={100}
-          />
-          <p>{weather.current.condition.text}</p>
-        </div>
+          <div className="flex flex-row justify-center items-center">
+            <div className="flex flex-col justify-center items-center">
+              <Image
+                src={`https:${weather.current.condition.icon}`}
+                alt="weather"
+                width={150}
+                height={10}
+              />
+            </div>
 
-        <div>
-          <p>{weather.current.temp_c}</p>
-          <p>°C</p>
-        </div>
+            <div className="ml-5 justify-center items-center">
+              <p>{weather.current.condition.text}</p>
+              <p className="text-3xl">{weather.current.temp_c}°C</p>
+            </div>
 
-        <div>
-          <p>Wind: {weather.current.wind_kph} kmph</p>
-          <p>Precip: {weather.current.precip_mm} mm</p>
-          <p>Pressure: {weather.current.pressure_mb} mb</p>
-        </div>
+            <div className="ml-5">
+              <p>Wind: {weather.current.wind_kph} kmph</p>
+              <p>Precip: {weather.current.precip_mm} mm</p>
+              <p>Pressure: {weather.current.pressure_mb} mb</p>
+            </div>
+          </div>
 
-        <div></div>
-      </div>
+          {/* forecast */}
+          <div className="flex flex-col items-center">
+            <h2 className="text-center text-3xl">Forecast</h2>
+            <div className="flex flex-row justify-center items-center">
+              {weather.forecast.forecastday.map((day, index) => (
+                <div key={index} className="flex flex-col items-center mx-4">
+                  <p className="text-2xl">{getWeekday(day.date)}</p>
+                  <Image
+                    src={`https:${day.day.condition.icon}`}
+                    alt="icon"
+                    width={100}
+                    height={100}
+                  />
+                  <p>{day.day.avgtemp_c}°C</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
+}
+
+function getWeekday(timeString) {
+  const date = new Date(timeString);
+  const weekdays = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  return weekdays[date.getDay()];
 }
 
 export default CurrentWeather;
