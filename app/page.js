@@ -23,7 +23,7 @@ export default function Home() {
           const data = await searchCities(weather.location.name);
 
           const locations = data ? data.Locations : [];
-          //console.log("locations:", locations);
+          console.log("Locations:", locations);
           setCurrentCity(locations.length > 0 ? locations[0] : null);
         }
       } catch (error) {

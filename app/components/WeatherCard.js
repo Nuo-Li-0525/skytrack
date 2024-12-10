@@ -28,10 +28,15 @@ function WeatherCard({ city }) {
 
   return (
     <div>
-      {/* <Image src={image} alt="weather" width={100} height={100} /> */}
       {weather == null && <p>Loading...</p>}
       {weather && (
         <div className="flex flex-row bg-black bg-opacity-50 rounded-lg">
+          <Image
+            src={`https:${weather.current.condition.icon}`}
+            alt="icon"
+            width={100}
+            height={100}
+          />
           <div className="flex flex-row">
             <p className="text-9xl">{weather.current.temp_c}</p>
             <p className="mt-3 text-3xl">°C</p>

@@ -1,0 +1,52 @@
+[
+  {
+    "Address": {
+      "StreetAddress": "",
+      "LocalArea": "",
+      "City": "Calgary",
+      "State": "AB",
+      "StateName": "Alberta",
+      "Zip": "",
+      "County": "Calgary",
+      "Country": "CA",
+      "CountryFullName": "Canada",
+      "SPLC": null
+    },
+    "Coords": {
+      "Lat": "51.037527",
+      "Lon": "-114.069921"
+    },
+    "Region": 4,
+    "POITypeID": 0,
+    "PersistentPOIID": -1,
+    "SiteID": -1,
+    "ResultType": 3,
+    "ShortString": "Calgary, AB, CA, Calgary",
+    "TimeZone": "GMT-7:00 MST"
+  },
+  {
+    "Address": {
+      "StreetAddress": "",
+      "LocalArea": "",
+      "City": "Calgary",
+      "State": "TX",
+      "StateName": "Texas",
+      "Zip": "",
+      "County": "San Augustine",
+      "Country": "US",
+      "CountryFullName": "United States",
+      "SPLC": null
+    },
+    "Coords": {
+      "Lat": "31.61722",
+      "Lon": "-94.11917"
+    },
+    "Region": 4,
+    "POITypeID": 0,
+    "PersistentPOIID": -1,
+    "SiteID": -1,
+    "ResultType": 3,
+    "ShortString": "Calgary, TX, US, San Augustine",
+    "TimeZone": "GMT-6:00 CST"
+  }
+]
