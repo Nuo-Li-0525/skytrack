@@ -5,6 +5,9 @@ import { useSearchParams } from "next/navigation";
 
 import { getWeather } from "../api/weather";
 
+// force render on client
+export const dynamic = "force-dynamic";
+
 function CityDetail() {
   const searchParams = useSearchParams();
   const cityName = searchParams.get("city");
