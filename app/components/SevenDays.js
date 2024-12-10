@@ -6,7 +6,7 @@ function SevenDays({ weather }) {
   const expandedDays = extendForecast(days, 7);
 
   return (
-    <div className="flex flex-row items-center bg-slate-400 rounded-2xl p-5 w-[40%] mx-auto justify-center">
+    <div className="flex flex-row items-center bg-slate-400 rounded-2xl p-5 w-full max-w-[950px] mx-auto justify-center">
       {expandedDays.map((day, index) => (
         <div key={index} className="flex flex-col items-center mx-4">
           <p className="text-2xl">{getWeekday(day.date)}</p>
