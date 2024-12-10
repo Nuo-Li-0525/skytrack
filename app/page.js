@@ -1,7 +1,6 @@
 "use client";
 
 import Popular from "./components/Popular";
-import Hourly from "./components/Hourly";
 import { useEffect, useState } from "react";
 import CityList from "./CityList";
 import WeatherCard from "./components/WeatherCard";
@@ -9,6 +8,7 @@ import { getCurrentLocationWeather, getWeather } from "./api/weather";
 import { searchCities } from "./api/trimble";
 import Search from "./Search";
 import CurrentWeather from "./CurrentWeather";
+import { useRouter } from "next/router";
 
 export default function Home() {
   const [cities, setCities] = useState([]);
@@ -38,6 +38,13 @@ export default function Home() {
     setCities((prevCities) => [...prevCities, city]);
   };
 
+  const handleCityClick = (city) => {
+    const { Lat: lat, Lon: lon } = city.Coords;
+    const cityName = city.Address.City;
+
+    window.location.href = `/city?city=${cityName}&lat=${lat}&lon=${lon}`;
+  };
+
   return (
     <main className="flex flex-col items-center justify-center bg-white  text-black">
       <header className="mb-10">
@@ -57,14 +64,17 @@ export default function Home() {
 
           {/* current location */}
           {currentCity && (
-            <div>
+            <div
+              onClick={() => handleCityClick(currentCity)}
+              className="cursor-pointer"
+            >
               <h2>Current: {currentCity.Address.City}</h2>
               <WeatherCard city={currentCity} />
             </div>
           )}
 
           {/* city list */}
-          <CityList cities={cities} />
+          <CityList cities={cities} onCityClick={handleCityClick} />
         </div>
         <div className="ml-10">
           {currentCity && <CurrentWeather city={currentCity} />}

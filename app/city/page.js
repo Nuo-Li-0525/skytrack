@@ -1,14 +1,15 @@
 "use client";
 
-import React from "react";
 import React, { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
+
 import { getWeather } from "../api/weather";
 
-function Detail({ city }) {
-  const {
-    Address: { City: cityName },
-    Coords: { Lat: lat, Lon: lon },
-  } = city;
+function CityDetail() {
+  const searchParams = useSearchParams();
+  const cityName = searchParams.get("city");
+  const lat = searchParams.get("lat");
+  const lon = searchParams.get("lon");
 
   const [weather, setWeather] = useState(null);
 
@@ -27,7 +28,13 @@ function Detail({ city }) {
 
     fetchWeather();
   }, [lat, lon]);
-  return <div></div>;
+  return (
+    <div>
+      <p>City: {cityName}</p>
+      <p>Lat: {lat}</p>
+      <p>Lon: {lon}</p>
+    </div>
+  );
 }
 
-export default Detail;
+export default CityDetail;

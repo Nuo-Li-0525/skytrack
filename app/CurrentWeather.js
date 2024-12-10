@@ -87,7 +87,8 @@ function CurrentWeather({ city }) {
 }
 
 function getWeekday(timeString) {
-  const date = new Date(timeString);
+  const isoString = `${timeString}T00:00:00Z`; // 假设时间是 UTC 时间
+  const date = new Date(isoString);
   const weekdays = [
     "Sunday",
     "Monday",
